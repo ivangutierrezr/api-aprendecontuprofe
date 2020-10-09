@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf.urls.static import static
 from docente import views as viewsDocente
 from estudiante import views as viewsEstudiante
 from asignatura import views as viewsAsignatura
@@ -34,4 +35,4 @@ urlpatterns = [
     url(r'^api/asignaturaestudiantes/(?P<pk>[0-9]+)$', viewsAsignatura.asignatura_manager_estudiantes),
     url(r'^api/asignaturasusuario/$', viewsAsignatura.asignaturas_usuario),
     url(r'^api/asignaturaitems/(?P<pk>[0-9]+)$', viewsAsignatura.items_asignatura),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

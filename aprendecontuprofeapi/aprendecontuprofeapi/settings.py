@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'f&afnuglg&7r3jn8kv9788w%ly&ad0+#ct&e5$a2s-+4oymy=5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'aprendecontuprofeapi.urls'
@@ -81,15 +82,23 @@ WSGI_APPLICATION = 'aprendecontuprofeapi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'USER': 'antilopeinteractive',
+#         'PASSWORD': 'antilope',
+#         'NAME': 'aprendecontuprofe',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+import dj_database_url
+from decouple import config
 DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'antilopeinteractive',
-        'PASSWORD': 'antilope',
-        'NAME': 'aprendecontuprofe',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 # CORS
@@ -140,7 +149,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = {
+    os.path.join(BASE_DIR, 'static')
+}
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
