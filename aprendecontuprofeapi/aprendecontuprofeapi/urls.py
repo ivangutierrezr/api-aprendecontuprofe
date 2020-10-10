@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf import settings
 from django.conf.urls.static import static
 from docente import views as viewsDocente
 from estudiante import views as viewsEstudiante
 from asignatura import views as viewsAsignatura
 from sesiones import views as viewsSesiones
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

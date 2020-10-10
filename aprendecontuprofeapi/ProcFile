@@ -1,1 +1,1 @@
-web: gunicorn aprendecontuprofeapi.wsgi --log-file -
+web: gunicorn aprendecontuprofeapi.wsgi
