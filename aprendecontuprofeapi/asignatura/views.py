@@ -116,7 +116,8 @@ def asignaturas_usuario(request):
             serializerDocente = CargarDocente(docente, context={'request': request})
             datos = {
                 "asignaturas": serializer.data,
-                "usuario": serializerDocente.data
+                "usuario": serializerDocente.data,
+                "rol": rol,
             }
             return Response(datos, status=status.HTTP_200_OK)            
         elif rol == 3:
